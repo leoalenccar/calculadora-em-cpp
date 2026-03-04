@@ -4,13 +4,13 @@ using namespace std;
 void escolherOperacao()
 {
     cout << "Qual o tipo de operação?" << endl;
-    cout << endl;
+    cout << "\n";
     cout << "Digite: " << endl;
     cout << "'1' para soma;" << endl;
     cout << "'2' para subtração;" << endl;
     cout << "'3' para multiplicação;" << endl;
     cout << "'4' para divisão." << endl;
-    cout << endl;
+    cout << "\n";
 }
 
 void mostrar (double x)
@@ -18,7 +18,7 @@ void mostrar (double x)
     cout << "=====================" << endl;
     cout << "    Resultado: " << x << endl;
     cout << "=====================" << endl;
-    cout << endl;
+    cout << "\n";
 }
 
 double soma (double a, double b) {return a + b;}
@@ -45,12 +45,14 @@ double calcular(int op, double a, double b)
         case 4:
             if (b == 0)
             {
-                cout << "Indefinido" << endl;
-                cout << "Digite um valor válido para divisão: ";
-                double c;
-                cin >> c;
-                cout << endl;
-                return calcular(4, a, c);
+                while (b == 0)
+                {
+                    cout << "Indefinido" << endl;
+                    cout << "Digite um valor válido para divisão: ";
+                    cin >> b;
+                    cout << "\n";
+                }
+                return divisao(a, b);
             }
             else
             {
@@ -61,38 +63,41 @@ double calcular(int op, double a, double b)
     return 0;
 }
 
+int validaOperacao()
+{
+    int op;
+    while (true)
+    {
+        cin >> op;
+        cout << "\n";
+        if (op >= 1 && op <= 4)
+        {
+            return op;
+        }
+
+        cout << "Tipo de operação inválida. Digite novamente: ";
+    }
+}
+
 void resultado ()
 {
-    double conta = 0;
+    double conta;
 
     double nmr1;
     cout << "Digite um número: ";
     cin >> nmr1;
-    cout << endl;
+    cout << "\n";
 
     int operacao;
     escolherOperacao();
-    bool sit = true;
-    while (sit)
-    {
-        cin >> operacao;
-        cout << endl;
-        if (operacao < 1 || operacao > 4)
-        {
-            cout << "Tipo de operação inválida. Digite novamente: ";
-        }
-        else
-        {
-            sit = false;
-        }
-    }
+    int op1 = validaOperacao();
 
     double nmr2;
     cout << "Digite outro número: ";
     cin >> nmr2;
-    cout << endl;
+    cout << "\n";
 
-    conta = calcular(operacao, nmr1, nmr2);
+    conta = calcular(op1, nmr1, nmr2);
 
     bool sit2 = true;
     while (sit2)
@@ -101,11 +106,11 @@ void resultado ()
         cout << "Continuar a calcular? Digite:" << endl;
         cout << "'0' para encerrar;" << endl;
         cout << "'1' para continuar." << endl;
-        cout << endl;
+        cout << "\n";
 
         int continuar;
         cin >> continuar;
-        cout << endl;
+        cout << "\n";
 
         if (continuar == 0)
         {
@@ -115,24 +120,14 @@ void resultado ()
         else if (continuar == 1)
         {
             escolherOperacao();
-            int op;
-            bool valido = true;
-            while (valido)
-            {
-                cin >> op;
-                cout << endl;
-                if (op < 1 || op > 4)
-                    cout << "Tipo de operação inválida. Digite novamente: ";
-                else
-                    valido = false;
-            }
+            int op2 = validaOperacao();
 
             double nmr;
             cout << "Digite outro número: ";
             cin >> nmr;
-            cout << endl;
+            cout << "\n";
 
-            conta = calcular(op, conta, nmr);
+            conta = calcular(op2, conta, nmr);
         }
         else
         {
