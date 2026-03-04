@@ -19,54 +19,112 @@ double multiplicacao (double a, double b) {return a * b;}
 
 double divisao (double a, double b) {return a / b;}
 
-void resultado(int operacao, int nmr1, int nmr2)
+double calcular(int op, double a, double b)
 {
-    switch (operacao)
+    switch (op)
     {
     case 1:
-        cout << nmr1 << " + " << nmr2 << " = " << soma(nmr1, nmr2) << endl;
+        return soma(a, b);
         break;
     case 2:
-        cout << nmr1 << " - " << nmr2 << " = " << subt(nmr1, nmr2) << endl;
+        return subt(a, b);
         break;
     case 3:
-        cout << nmr1 << " * " << nmr2 << " = " << multiplicacao(nmr1, nmr2) << endl;
+        return multiplicacao(a, b);
         break;
     case 4:
-        if (nmr2 == 0)
+        if (b == 0)
         {
             cout << "Indefinido" << endl;
+            return 0;
         }
         else
         {
-            cout << nmr1 << " / " << nmr2 << " = " << divisao(nmr1, nmr2) << endl;
+            return divisao(a, b);
         }
         break;
     }
 }
 
+double resultado ()
+{
+    double conta = 0;
+    while (true)
+    {
+        double nmr1;
+        cout << "Digite um número: ";
+        cin >> nmr1;
+
+        int operacao;
+        escolherOperacao();
+        while (true)
+        {
+            cin >> operacao;
+            if (operacao < 1 || operacao > 4)
+            {
+                cout << "Tipo de operação inválido";
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        double nmr2;
+        cout << "Digite outro número: ";
+        cin >> nmr2;
+
+        conta = calcular (operacao, nmr1, nmr2);
+
+        while (true)
+        {
+            cout << "Continuar a calcular? Digite:" << endl;
+            cout << "'0' para encerrar;" << endl;
+            cout << "'2' para continuar." << endl;
+
+            int continuar;
+            cin >> continuar;
+
+            while (true)
+            {
+                if (continuar == 0)
+                {
+                    break;
+                }
+                else if (continuar == 1)
+                {
+                    escolherOperacao();
+                    int op;
+                    cin >> op;
+
+                    double nmr;
+                    cout << "Digite outro número: ";
+                    cin >> nmr;
+
+                    conta = calcular(op, conta, nmr);
+                }
+                else
+                {
+                    cout << "Digíte um número válido";
+                }
+            }
+            
+            break;
+
+        }
+
+        break;
+    }
+    
+    return conta;
+}
+
 int main()
 {
-    double nmr1;
-    cout << "Digite um número: ";
-    cin >> nmr1;
 
-    int operacao;
+    double resul = resultado();
 
-    escolherOperacao();
-
-    cin >> operacao;
-    if (operacao < 1 || operacao > 4)
-    {
-        cout << "Tipo de operação inválido";
-        return 0;
-    }
-
-    double nmr2;
-    cout << "Digite outro número: ";
-    cin >> nmr2;
-
-    resultado(operacao, nmr1, nmr2);
+    cout << "Resultado : " << resul;
 
     return 0;
 }
