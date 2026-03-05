@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cmath>
 using namespace std;
 
 void escolherOperacao()
@@ -9,15 +10,17 @@ void escolherOperacao()
     cout << "'1' para soma;" << endl;
     cout << "'2' para subtração;" << endl;
     cout << "'3' para multiplicação;" << endl;
-    cout << "'4' para divisão." << endl;
+    cout << "'4' para divisão;" << endl;
+    cout << "'5' para exponenciação;" << endl;
+    cout << "'6' para raíz quadrada." << endl;
     cout << "\n";
 }
 
 void mostrar (double x)
 {
-    cout << "=====================" << endl;
+    cout << "======================" << endl;
     cout << "    Resultado: " << x << endl;
-    cout << "=====================" << endl;
+    cout << "======================" << endl;
     cout << "\n";
 }
 
@@ -28,6 +31,10 @@ double subt (double a, double b) {return a - b;}
 double multiplicacao (double a, double b) {return a * b;}
 
 double divisao (double a, double b) {return a / b;}
+
+double exp (double a, double b) {return pow (a, b);}
+
+double raizQuadrada (double a){return sqrt(a);}
 
 double calcular(int op, double a, double b)
 {
@@ -58,6 +65,9 @@ double calcular(int op, double a, double b)
             {
                 return divisao(a, b);
             }
+
+        case 5:
+            return exp(a, b);
     }
 
     return 0;
@@ -70,7 +80,7 @@ int validaOperacao()
     {
         cin >> op;
         cout << "\n";
-        if (op >= 1 && op <= 4)
+        if (op >= 1 && op <= 6)
         {
             return op;
         }
@@ -92,12 +102,19 @@ void resultado ()
     escolherOperacao();
     int op1 = validaOperacao();
 
-    double nmr2;
-    cout << "Digite outro número: ";
-    cin >> nmr2;
-    cout << "\n";
+    if (op1 != 6)
+    {
+        double nmr2;
+        cout << "Digite outro número: ";
+        cin >> nmr2;
+        cout << "\n";
 
-    conta = calcular(op1, nmr1, nmr2);
+        conta = calcular(op1, nmr1, nmr2);
+    }
+    else
+    {
+        conta = raizQuadrada(nmr1);
+    }
 
     bool sit2 = true;
     while (sit2)
@@ -114,7 +131,7 @@ void resultado ()
 
         if (continuar == 0)
         {
-            cout << "Af vey :(" << endl;
+            cout << "fim." << endl;
             sit2 = false;
         }
         else if (continuar == 1)

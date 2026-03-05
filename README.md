@@ -17,6 +17,8 @@ Este projeto é um **exercício de aprendizado e evolução** de uma calculadora
   - Subtração
   - Multiplicação
   - Divisão
+  - Exponenciação
+  - Raiz quadrada
 
 - **Múltiplas operações**:
   - É possível continuar a fazer cálculos com o resultado gerado.
