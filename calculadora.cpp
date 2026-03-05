@@ -2,44 +2,25 @@
 #include <cmath>
 using namespace std;
 
-void escolherOperacao()
+class Calculadora
 {
-    cout << "Qual o tipo de operação?" << endl;
-    cout << "\n";
-    cout << "Digite: " << endl;
-    cout << "'1' para soma;" << endl;
-    cout << "'2' para subtração;" << endl;
-    cout << "'3' para multiplicação;" << endl;
-    cout << "'4' para divisão;" << endl;
-    cout << "'5' para exponenciação;" << endl;
-    cout << "'6' para raíz quadrada." << endl;
-    cout << "\n";
-}
+public:
+    double soma(double a, double b) { return a + b; }
 
-void mostrar (double x)
-{
-    cout << "======================" << endl;
-    cout << "    Resultado: " << x << endl;
-    cout << "======================" << endl;
-    cout << "\n";
-}
+    double subt(double a, double b) { return a - b; }
 
-double soma (double a, double b) {return a + b;}
+    double multiplicacao(double a, double b) { return a * b; }
 
-double subt (double a, double b) {return a - b;}
+    double divisao(double a, double b) { return a / b; }
 
-double multiplicacao (double a, double b) {return a * b;}
+    double exp(double a, double b) { return pow(a, b); }
 
-double divisao (double a, double b) {return a / b;}
+    double raizQuadrada(double a) { return sqrt(a); }
 
-double exp (double a, double b) {return pow (a, b);}
-
-double raizQuadrada (double a){return sqrt(a);}
-
-double calcular(int op, double a, double b)
-{
-    switch (op)
+    double calcular(int op, double a, double b)
     {
+        switch (op)
+        {
         case 1:
             return soma(a, b);
 
@@ -68,94 +49,149 @@ double calcular(int op, double a, double b)
 
         case 5:
             return exp(a, b);
-    }
+        
+        case 6:
+            return raizQuadrada(a);
 
-    return 0;
-}
-
-int validaOperacao()
-{
-    int op;
-    while (true)
-    {
-        cin >> op;
-        cout << "\n";
-        if (op >= 1 && op <= 6)
-        {
-            return op;
         }
 
-        cout << "Tipo de operação inválida. Digite novamente: ";
+        return 0;
     }
-}
+};
 
-void resultado ()
+class Interface
 {
-    double conta;
+public:
+    void escolherOperacao()
+    {
+        cout << "Qual o tipo de operação?" << endl;
+        cout << "\n";
+        cout << "Digite: " << endl;
+        cout << "'1' para soma;" << endl;
+        cout << "'2' para subtração;" << endl;
+        cout << "'3' para multiplicação;" << endl;
+        cout << "'4' para divisão;" << endl;
+        cout << "'5' para exponenciação;" << endl;
+        cout << "'6' para raíz quadrada." << endl;
+        cout << "\n";
+    }
 
-    double nmr1;
-    cout << "Digite um número: ";
-    cin >> nmr1;
-    cout << "\n";
+    int pedir1nmr()
+    {
+        int nmr1;
+        cout << "Digite um número: ";
+        cin >> nmr1;
+        cout << "\n";
+    }
 
-    int operacao;
-    escolherOperacao();
-    int op1 = validaOperacao();
-
-    if (op1 != 6)
+    int pedirOutroNmr()
     {
         double nmr2;
         cout << "Digite outro número: ";
         cin >> nmr2;
         cout << "\n";
-
-        conta = calcular(op1, nmr1, nmr2);
-    }
-    else
-    {
-        conta = raizQuadrada(nmr1);
     }
 
-    bool sit2 = true;
-    while (sit2)
+    void mostrarResultado(double x)
     {
-        mostrar(conta);
+        cout << "======================" << endl;
+        cout << "    Resultado: " << x << endl;
+        cout << "======================" << endl;
+        cout << "\n";
+    }
+
+    void continuar()
+    {
         cout << "Continuar a calcular? Digite:" << endl;
         cout << "'0' para encerrar;" << endl;
         cout << "'1' para continuar." << endl;
         cout << "\n";
+    }
 
-        int continuar;
-        cin >> continuar;
-        cout << "\n";
-
-        if (continuar == 0)
+    int validaOperacao()
+    {
+        int op;
+        while (true)
         {
-            cout << "fim." << endl;
-            sit2 = false;
-        }
-        else if (continuar == 1)
-        {
-            escolherOperacao();
-            int op2 = validaOperacao();
-
-            double nmr;
-            cout << "Digite outro número: ";
-            cin >> nmr;
+            cin >> op;
             cout << "\n";
+            if (op >= 1 && op <= 6)
+            {
+                return op;
+            }
 
-            conta = calcular(op2, conta, nmr);
+            cout << "Tipo de operação inválida. Digite novamente: ";
+        }
+    }
+};
+
+class Programa
+{
+public:
+    void resultado()
+    {
+        Calculadora calc;
+        Interface ui;
+
+        double conta;
+
+        double nmr1 = ui.pedir1nmr();
+
+        int operacao;
+        ui.escolherOperacao();
+        int op1 = ui.validaOperacao();
+
+        if (op1 != 6)
+        {
+            double nmr2 = ui.pedirOutroNmr();
+
+            conta = calc.calcular(op1, nmr1, nmr2);
         }
         else
         {
-            cout << "Digíte um número válido";
+            conta = calc.calcular(op1, nmr1, 0);
+        }
+
+        bool sit2 = true;
+        while (sit2)
+        {
+            ui.mostrarResultado(conta);
+            ui.continuar();
+
+            int continuar;
+            cin >> continuar;
+            cout << "\n";
+
+            if (continuar == 0)
+            {
+                cout << "fim." << endl;
+                sit2 = false;
+            }
+            else if (continuar == 1)
+            {
+                ui.escolherOperacao();
+                int op2 = ui.validaOperacao();
+
+                double nmr;
+                cout << "Digite outro número: ";
+                cin >> nmr;
+                cout << "\n";
+
+                conta = calc.calcular(op2, conta, nmr);
+            }
+            else
+            {
+                cout << "Digíte um número válido";
+            }
         }
     }
-}
+};
 
 int main()
 {
-    resultado();
+    Programa programa;
+
+    programa.resultado();
 
     return 0;
 }
