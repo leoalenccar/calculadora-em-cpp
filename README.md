@@ -23,6 +23,23 @@ Este projeto é um **exercício de aprendizado e evolução** de uma calculadora
 - **Múltiplas operações**:
   - É possível continuar a fazer cálculos com o resultado gerado.
 
-## Planejadas para versões futuras:
-  - Adicionar novas operações como exponenciação e raízes quadradas.
+## Funcionalidades - Versão 3.0:
+
+- **Operações básicas**:
+  - Soma
+  - Subtração
+  - Multiplicação
+  - Divisão
+  - Exponenciação
+  - Raiz quadrada
+
+- **Múltiplas operações**:
+  - É possível continuar a fazer cálculos com o resultado gerado.
+
+- **POO**:
   - Implementação da calculadora com **Programação Orientada a Objetos (POO)**.
+
+## Planejadas para versões futuras:
+  - Histórico de cálculos;
+  - Uso de enum;
+  - Separar em arquivos;
