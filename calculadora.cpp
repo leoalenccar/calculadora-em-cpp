@@ -1,5 +1,7 @@
 #include <iostream>
 #include <cmath>
+#include <thread>
+#include <chrono>
 using namespace std;
 
 class Calculadora
@@ -64,58 +66,66 @@ class Interface
 public:
     void escolherOperacao()
     {
-        cout << "Qual o tipo de operação?" << endl;
+        cout << "Qual o tipo de operação?\n";
         cout << "\n";
-        cout << "Digite: " << endl;
-        cout << "'1' para soma;" << endl;
-        cout << "'2' para subtração;" << endl;
-        cout << "'3' para multiplicação;" << endl;
-        cout << "'4' para divisão;" << endl;
-        cout << "'5' para exponenciação;" << endl;
-        cout << "'6' para raíz quadrada." << endl;
-        cout << "\n";
+        cout << "'1' para soma;\n";
+        cout << "'2' para subtração;\n";
+        cout << "'3' para multiplicação;\n";
+        cout << "'4' para divisão;\n";
+        cout << "'5' para exponenciação;\n";
+        cout << "'6' para raíz quadrada;\n";
+        cout << "'0' para encerrar.\n";
+        cout << "Digite: ";
     }
 
-    int pedir1nmr()
+
+    double pedirNmr1()
     {
-        int nmr1;
+        double nmr1;
         cout << "Digite um número: ";
         cin >> nmr1;
         cout << "\n";
+
+        return nmr1;
     }
 
-    int pedirOutroNmr()
+    double pedirOutroNmr()
     {
-        double nmr2;
+        double nmr;
         cout << "Digite outro número: ";
-        cin >> nmr2;
+        cin >> nmr;
         cout << "\n";
+
+        return nmr;
     }
+
 
     void mostrarResultado(double x)
     {
         cout << "======================" << endl;
         cout << "    Resultado: " << x << endl;
         cout << "======================" << endl;
+        this_thread::sleep_for(chrono::seconds(3));
         cout << "\n";
     }
 
-    void continuar()
+    void encerrar()
     {
-        cout << "Continuar a calcular? Digite:" << endl;
-        cout << "'0' para encerrar;" << endl;
-        cout << "'1' para continuar." << endl;
+        cout << "Encerrando...";
+        this_thread::sleep_for(chrono::seconds(3));
         cout << "\n";
+
     }
 
-    int validaOperacao()
+
+    int validarOperacao()
     {
         int op;
         while (true)
         {
             cin >> op;
             cout << "\n";
-            if (op >= 1 && op <= 6)
+            if (op >= 0 && op <= 6)
             {
                 return op;
             }
@@ -134,54 +144,59 @@ public:
         Interface ui;
 
         double conta;
+        int quantOpe = 0;
 
-        double nmr1 = ui.pedir1nmr();
-
-        int operacao;
-        ui.escolherOperacao();
-        int op1 = ui.validaOperacao();
-
-        if (op1 != 6)
+        while (true)
         {
-            double nmr2 = ui.pedirOutroNmr();
+            ui.escolherOperacao();
+            int operacao = ui.validarOperacao();
 
-            conta = calc.calcular(op1, nmr1, nmr2);
-        }
-        else
-        {
-            conta = calc.calcular(op1, nmr1, 0);
-        }
-
-        bool sit2 = true;
-        while (sit2)
-        {
-            ui.mostrarResultado(conta);
-            ui.continuar();
-
-            int continuar;
-            cin >> continuar;
-            cout << "\n";
-
-            if (continuar == 0)
+            if (operacao == 0)
             {
-                cout << "fim." << endl;
-                sit2 = false;
+                ui.encerrar();
+                break;
             }
-            else if (continuar == 1)
+            else if (operacao == 6)
             {
-                ui.escolherOperacao();
-                int op2 = ui.validaOperacao();
+                if (quantOpe == 0)
+                {
+                    double nmr1 = ui.pedirNmr1();
+                    conta = calc.calcular(operacao, nmr1, 0);
+                    quantOpe++;
 
-                double nmr;
-                cout << "Digite outro número: ";
-                cin >> nmr;
-                cout << "\n";
+                    ui.mostrarResultado(conta);
+                }
+                else
+                {
+                    conta = calc.calcular(operacao, conta, 0);
+                    quantOpe++;
 
-                conta = calc.calcular(op2, conta, nmr);
+                    ui.mostrarResultado(conta);
+                }
             }
             else
             {
-                cout << "Digíte um número válido";
+                if (quantOpe == 0)
+                {
+                    double nmr1 = ui.pedirNmr1();
+                    double nmr2 = ui.pedirOutroNmr();
+
+                    conta = calc.calcular(operacao, nmr1, nmr2);
+
+                    quantOpe++;
+
+                    ui.mostrarResultado(conta);
+                }
+                else
+                {
+                    double nmr2 = ui.pedirOutroNmr();
+
+                    conta = calc.calcular(operacao, conta, nmr2);
+
+                    quantOpe++;
+
+                    ui.mostrarResultado(conta);
+                }
             }
         }
     }
