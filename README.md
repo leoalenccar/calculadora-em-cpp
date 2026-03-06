@@ -39,7 +39,9 @@ Este projeto é um **exercício de aprendizado e evolução** de uma calculadora
 - **POO**:
   - Implementação da calculadora com **Programação Orientada a Objetos (POO)**.
 
+- **Separação em arquivos**:
+  - main.cpp e arquivos .h e .cpp para classes.
+
 ## Planejadas para versões futuras:
   - Histórico de cálculos;
-  - Uso de enum;
-  - Separar em arquivos;
+  - Uso de enum.
