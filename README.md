@@ -13,35 +13,18 @@ Este projeto é um **exercício de aprendizado e evolução** de uma calculadora
 ## Funcionalidades - Versão 2.0:
 
 - **Operações básicas**:
-  - Soma
-  - Subtração
-  - Multiplicação
-  - Divisão
   - Exponenciação
   - Raiz quadrada
 
-- **Múltiplas operações**:
+- **Novidades**:
   - É possível continuar a fazer cálculos com o resultado gerado.
 
 ## Funcionalidades - Versão 3.0:
 
-- **Operações básicas**:
-  - Soma
-  - Subtração
-  - Multiplicação
-  - Divisão
-  - Exponenciação
-  - Raiz quadrada
-
-- **Múltiplas operações**:
-  - É possível continuar a fazer cálculos com o resultado gerado.
-
-- **POO**:
+- **Novidades**:
   - Implementação da calculadora com **Programação Orientada a Objetos (POO)**.
-
-- **Separação em arquivos**:
-  - main.cpp e arquivos .h e .cpp para classes.
+  - Melhor separação de classes e funções.
+  - Uso de enum.
 
 ## Planejadas para versões futuras:
-  - Histórico de cálculos;
-  - Uso de enum.
+  - Histórico de cálculos.

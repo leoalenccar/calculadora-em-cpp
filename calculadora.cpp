@@ -22,16 +22,16 @@ double Calculadora::calcular(int op, double a, double b)
 {
     switch (op)
     {
-    case 1:
+    case SOMA:
         return soma(a, b);
 
-    case 2:
+    case SUBTRACAO:
         return subt(a, b);
 
-    case 3:
+    case MULTIPLICACAO:
         return multiplicacao(a, b);
 
-    case 4:
+    case DIVISAO:
         if (b == 0)
         {
             while (b == 0)
@@ -45,10 +45,10 @@ double Calculadora::calcular(int op, double a, double b)
             return divisao(a, b);
         }
 
-    case 5:
+    case EXPONENCIACAO:
         return exp(a, b);
 
-    case 6:
+    case RAIZ_QUADRADA:
         return raizQuadrada(a);
     }
 

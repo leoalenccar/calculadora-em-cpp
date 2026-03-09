@@ -1,6 +1,18 @@
 #ifndef CALCULADORA_H
 #define CALCULADORA_H
 
+enum Operacao
+{
+    SAIR = 0,
+    SOMA = 1,
+    SUBTRACAO = 2,
+    MULTIPLICACAO = 3,
+    DIVISAO = 4,
+    EXPONENCIACAO = 5,
+    RAIZ_QUADRADA = 6
+
+};
+
 class Calculadora
 {
 public:
